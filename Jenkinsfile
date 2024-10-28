@@ -21,7 +21,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    docker.build("your-docker-repo/java-hello-world:latest")
+                    docker.build("your-docker-repo/sprint-petclinic:latest")
                 }
             }
         }
