@@ -1,6 +1,12 @@
 pipeline {
     agent any
 
+    environment {
+        // Example of adding environment variables if needed
+        DOCKER_REPO = "your-docker-repo"  // Replace with your actual Docker repo
+        K8S_NAMESPACE = "your-k8s-namespace"  // Kubernetes namespace to deploy to
+    }
+
     stages {
         stage('Build') {
             steps {
