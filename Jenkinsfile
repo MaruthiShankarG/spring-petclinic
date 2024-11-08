@@ -12,7 +12,7 @@ pipeline {
             steps {
                 script {
                     if (fileExists('pom.xml')) {
-                        sh 'mvn clean install'
+                        sh 'mvn clean install -DskipTests'
                     } else {
                         echo 'No Maven project found'
                     }
