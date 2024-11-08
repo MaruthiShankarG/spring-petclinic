@@ -31,7 +31,7 @@ pipeline {
                 }
             }
         }
-        stage('Build Docker Image') {
+        stage('Push Docker Image') {
             steps {
                 script {
                     docker.push("your-docker-repo/sprint-petclinic:latest")
