@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         // Example of adding environment variables if needed
-        DOCKER_REPO = "your-docker-repo"  // Replace with your actual Docker repo
+        DOCKER_REPO = "maruthigs"  // Replace with your actual Docker repo
         K8S_NAMESPACE = "your-k8s-namespace"  // Kubernetes namespace to deploy to
     }
 
@@ -28,6 +28,13 @@ pipeline {
             steps {
                 script {
                     docker.build("your-docker-repo/sprint-petclinic:latest")
+                }
+            }
+        }
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    docker.push("your-docker-repo/sprint-petclinic:latest")
                 }
             }
         }
