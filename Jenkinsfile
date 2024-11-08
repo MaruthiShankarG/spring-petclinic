@@ -27,7 +27,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    docker.build("your-docker-repo/sprint-petclinic:latest")
+                  sh 'docker build -t maruthigs/sprint-petclinic:latest")
                 }
             }
         }
