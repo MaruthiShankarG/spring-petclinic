@@ -1,5 +1,5 @@
 # Use OpenJDK 11 based Alpine image
-FROM openjdk:11-jdk-alpine
+FROM openjdk:11-jdk
 
 # Set the working directory inside the container
 WORKDIR /usr/src/myapp
