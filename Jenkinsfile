@@ -13,14 +13,14 @@ pipeline {
                     def jarExists = fileExists 'target/spring-petclinic-3.3.0-SNAPSHOT.jar'
                     if (jarExists) {
                         echo 'JAR file exists, proceeding with Docker build.'
-                        sh 'docker build -t yourdockerhubusername/spring-petclinic:latest .'
+                        sh 'docker build -t maruthigs/spring-petclinic:latest .'
                     } else {
                         error 'JAR file does not exist, build failed.'
                     }
                 }
             }
         }
-        stage('Push to Docker Hub') {
+    /*    stage('Push to Docker Hub') {
             steps {
                 withCredentials([string(credentialsId: 'docker-hub-credentials', variable: 'DOCKERHUB_PASSWORD')]) {
                     sh '''
@@ -29,6 +29,6 @@ pipeline {
                     '''
                 }
             }
-        }
+        } */
     }
 }
