@@ -13,7 +13,7 @@ COPY . /usr/src/myapp
 RUN ./mvnw clean install -DskipTests
 
 # Specify the location of the JAR file after Maven builds it
-ADD target/spring-petclinic-0.0.1-SNAPSHOT.jar /usr/src/myapp/spring-petclinic.jar
+ADD target/spring-petclinic-3.3.0-SNAPSHOT.jar /usr/src/myapp/spring-petclinic.jar
 
 # Set the default command to run your Spring Boot application
 ENTRYPOINT ["java", "-jar", "/usr/src/myapp/spring-petclinic.jar"]
