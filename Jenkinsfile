@@ -26,7 +26,7 @@ pipeline {
                     sh '''
                     echo $DOCKERHUB_PASSWORD | docker login -u gmaruthishankar1@gmail.com --password-stdin
                     docker push yourdockerhubusername/spring-petclinic:latest
-                    '''
+                
                 }
             }
         } 
