@@ -1,46 +1,33 @@
 pipeline {
     agent any
-
-    environment {
-        // Example of adding environment variables if needed
-        DOCKER_REPO = "maruthigs"  // Replace with your actual Docker repo
-        K8S_NAMESPACE = "your-k8s-namespace"  // Kubernetes namespace to deploy to
-    }
-
     stages {
         stage('Build') {
             steps {
+                sh 'mvn clean package'
+                sh 'ls -l target/'
+            }
+        }
+        stage('Docker Build') {
+            steps {
                 script {
-                    if (fileExists('pom.xml')) {
-                        sh 'mvn clean test -Dtest=!PostgresIntegrationTests'
+                    def jarExists = fileExists 'target/spring-petclinic-3.3.0-SNAPSHOT.jar'
+                    if (jarExists) {
+                        echo 'JAR file exists, proceeding with Docker build.'
+                        sh 'docker build -t yourdockerhubusername/spring-petclinic:latest .'
                     } else {
-                        echo 'No Maven project found'
+                        error 'JAR file does not exist, build failed.'
                     }
                 }
             }
         }
-        stage('Test') {
+        stage('Push to Docker Hub') {
             steps {
-               sh 'mvn clean test -Dtest=!PostgresIntegrationTests'
-            }
-        }
-        stage('Build Docker Image') {
-            steps {
-                script {
-                  sh 'docker build -t maruthigs/sprint-petclinic:latest .'
+                withCredentials([string(credentialsId: 'docker-hub-credentials', variable: 'DOCKERHUB_PASSWORD')]) {
+                    sh '''
+                    echo $DOCKERHUB_PASSWORD | docker login -u yourdockerhubusername --password-stdin
+                    docker push yourdockerhubusername/spring-petclinic:latest
+                    '''
                 }
-            }
-        }
-        stage('Push Docker Image') {
-            steps {
-                script {
-                    docker.push("your-docker-repo/sprint-petclinic:latest")
-                }
-            }
-        }
-        stage('Deploy to Kubernetes') {
-            steps {
-                kubernetesDeploy(configs: 'deployment.yaml', enableConfigSubstitution: true)
             }
         }
     }
