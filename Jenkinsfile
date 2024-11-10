@@ -50,7 +50,7 @@ pipeline {
             steps {
                 script {
                     // Update kubeconfig for AWS EKS cluster access
-                    sh "aws eks update-kubeconfig --name sample --region us-east-1"  // Replace with your cluster name and region
+                    sh "aws eks update-kubeconfig --name Sample --region us-east-1"  // Replace with your cluster name and region
                     // Apply Kubernetes deployment YAML file
                     sh "kubectl apply -f ${K8S_DEPLOYMENT_FILE} -n ${K8S_NAMESPACE}"
                     // If you have a service YAML, you can uncomment the line below:
