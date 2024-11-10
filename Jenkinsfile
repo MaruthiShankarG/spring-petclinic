@@ -40,10 +40,10 @@ pipeline {
             steps {
                 script {
                     // Set up Kubernetes credentials to access the cluster
-                    withKubeConfig(credentialsId: 'k8s-cluster-credentials') {
-                        // Apply the Kubernetes deployment and service YAML files
-                        sh "kubectl apply -f ${K8S_DEPLOYMENT_FILE} -n ${K8S_NAMESPACE}"
-                      //  sh "kubectl apply -f ${K8S_SERVICE_FILE} -n ${K8S_NAMESPACE}"
+                   sh "aws eks update-kubeconfig --name sample --region us-east-1"
+                    // Apply the Kubernetes deployment and service YAML files
+                    sh "kubectl apply -f ${K8S_DEPLOYMENT_FILE} -n ${K8S_NAMESPACE}"
+                      
                     }
                 }
             }
