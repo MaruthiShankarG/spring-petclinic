@@ -20,13 +20,11 @@ pipeline {
                 }
             }
         }
-        stage('Push to Docker Hub') {
-            steps {
-                withCredentials([string(credentialsId: 'docker-hub-credentials', variable: 'DOCKERHUB_PASSWORD')]) {
-                    sh '''
-                    echo $DOCKERHUB_PASSWORD | docker login -u gmaruthishankar1@gmail.com --password-stdin
-                    docker push yourdockerhubusername/spring-petclinic:latest
-                      '''
+        stage('Push to Docker Hub') { 
+            steps { withCredentials([string(credentialsId: 'docker-hub-password', variable: 'DOCKERHUB_PASSWORD')]) { 
+                sh ''' echo $DOCKERHUB_PASSWORD | docker login -u maruthigs --password-stdin
+                       docker push maruthigs/spring-petclinic:latest
+                '''
                 }
             }
         } 
