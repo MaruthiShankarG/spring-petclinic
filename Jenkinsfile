@@ -36,7 +36,7 @@ pipeline {
                 withCredentials([string(credentialsId: 'docker-hub-password', variable: 'DOCKERHUB_PASSWORD')]) {
                     sh ''' 
                     echo $DOCKERHUB_PASSWORD | docker login -u maruthigs --password-stdin
-                    docker push maruthigs/spring-petclinic:latest  // Push the Docker image to Hub
+                    docker push maruthigs/spring-petclinic:latest
                     '''
                 }
             }
